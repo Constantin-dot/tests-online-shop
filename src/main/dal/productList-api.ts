@@ -1,0 +1,6 @@
+import axios from 'axios'
+
+const instance = axios.create({
+    // baseURL: REACT_APP_DB_URL,
+    withCredentials: true
+})
