@@ -19,7 +19,7 @@ const App: React.FC = () => {
                 <Route path={'/'} exact component={Login}/>
                 <Route path={'/shop'} component={Shop}/>
                 <Route path={'/cart'} component={Cart}/>
-                <Route path={'*'} render={ () => <div>404 NOT FOUND</div>}/>
+                <Route path={'*'} render={ () => <div className="jumbotron">404 NOT FOUND</div>}/>
             </Switch>
         </div>
     </div>

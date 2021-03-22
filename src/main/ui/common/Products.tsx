@@ -1,19 +1,16 @@
-let product = [
-    {id: "1", title: "A", description: "sfdasf asdfasdf afda;kj;kj ;kjas"},
-    {id: "2", title: "B", description: "a;sjf;lj ;jasfd;lj ;klsjdf;al"},
-    {id: "3", title: "C", description: "aj;sdf;ajsd ;j;alsdkjf;lkj a;kjs"},
-    {id: "4", title: "D", description: ";jlj;lj;lk ;kj;lasdjf;lkj ;jkjsdlfj; j"},
-    {id: "5", title: "E", description: "psoiduwej ; sjdwoj j;jfe"},
-    {id: "6", title: "F", description: "l;jer;lj ;kjerjw;lj ;kjerw"}
-]
+import React from 'react'
+import { ProductType } from '../../dal/productList-api'
 
+type ProductsPropsType = {
+    products: Array<ProductType>
+}
 
-export const Products = () => {
+export const Products: React.FC<ProductsPropsType> = ({products}) => {
     return <ul className="list-group">
-        {product.map(product => (
+        {products && products.map(product => (
             <li className="list-group-item product" key={product.id}>
-                <h3>{product.title}</h3>
-                {product.description}
+                <h3>{product.name}</h3>
+                {product.price}
                 <button 
                     type="button" 
                     className="btn btn-outline-danger btn-sm"

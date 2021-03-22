@@ -19,7 +19,7 @@ export const Login: React.FC = () => {
         console.log(password, e.target.id);
     }
     
-    return <div className="jumbotron loginBlock">
+    return <div className="jumbotron formBlock">
         <input 
                 type="text" 
                 placeholder="email" 

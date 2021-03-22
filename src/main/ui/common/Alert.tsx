@@ -7,7 +7,7 @@ type AlertPropsType = {
     
 }
 
-export const Alert: React.FC<AlertPropsType> = React.memo(({}) => {
+export const Alert: React.FC<AlertPropsType> = React.memo(() => {
     const dispatch = useDispatch()
     const {visible, alertClass, alertText} = useSelector<RootStateType, AlertStateType>(state => state.alert) 
 
