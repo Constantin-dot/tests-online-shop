@@ -13,6 +13,7 @@ export const Shop: React.FC = () => {
     
     useEffect(() => {
         dispatch(fetchProducts())
+        // eslint-disable-next-line
     }, [])
 
     return <div>

@@ -1,13 +1,9 @@
-import firebase from 'firebase'
 import { ChangeEvent, useState } from 'react'
 
 export const Login: React.FC = () => {
 
     const[email, setEmail] = useState<string | null>(null)
     const[password, setPassword] = useState<string | null>(null)
-
-    const db = firebase.database()
-    console.log(db)
 
     const handleEmailChange = (e: ChangeEvent<HTMLInputElement>) => {
         setEmail(e.target.value)

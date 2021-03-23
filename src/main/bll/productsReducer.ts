@@ -1,12 +1,8 @@
 import { RootStateType} from './store'
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit"
-import { CreateProductType } from "../dal/productList-api"
+import { CreateProductType, productListAPI } from "../dal/productList-api"
 import { showAlert } from './alertReducer'
-import firebase from 'firebase'
 
-
-
-const productsRef = firebase.database().ref('products/')
 
 const initialState = {
     products: [] as Array<ProductType>,
@@ -14,41 +10,55 @@ const initialState = {
     shopLoader: false
 }
 
-export const addProduct = createAsyncThunk<
-    unknown, 
-    CreateProductType, 
-    {rejectValue: string, state: RootStateType}
-    >("products/addProductTC", 
-    (product, {dispatch}) => {
-        productsRef.push (product)
-        dispatch(showAlert({alertClass: 'success',alertText: 'New product was added to product list.'}))
-    }
-)
-
 export const fetchProducts = createAsyncThunk<
     unknown,
     undefined,
     {rejectValue: string, state: RootStateType}
     >("products/fetchProducts/TC",
-    (arg, {dispatch}) => {
-        
-            productsRef.on("value", function(snapshot) {
-                const res = snapshot.val(); 
-                
-                const payload: Array<ProductType> = Object.keys(res).map(key => {
-                    return {
-                        ...res[key],
-                        id: key
-                    }
-                })
-                dispatch(getProducts(payload))
-            }, function (error: any) {
-                console.log("Error: " + error.code);
-            })
-       
+    async (arg, {dispatch}) => {
+        const res = await productListAPI.fetchProducts()
+        const payload: Array<ProductType> = Object.keys(res.data).map(key => {
+            return {
+                ...res.data[key],
+                id: key
+            }
+        })
+        dispatch(getProducts(payload))
+        // console.log(payload);
     }
 )
 
+export const addProduct = createAsyncThunk<
+    unknown, 
+    CreateProductType, 
+    {rejectValue: string, state: RootStateType}
+    >("products/addProductTC", 
+    async (product, {rejectWithValue, dispatch}) => {
+        try {
+            await productListAPI.addProduct(product)
+            dispatch(showAlert({alertClass: 'success', alertText: 'New product was added to product list.'}))
+            dispatch(fetchProducts())
+        } catch (e) {
+            return rejectWithValue(e.response ? e.response.data.error : "unknown error")
+        }
+    }
+)
+
+export const removeProduct = createAsyncThunk<
+    unknown,
+    string,
+    {rejectValue: string, state: RootStateType}
+    >("products/removeProductTC", 
+    async (id, {rejectWithValue, dispatch}) => {
+        try {
+            await productListAPI.removeProduct(id)
+            dispatch(showAlert({alertClass: 'success', alertText: 'Product was removed from product list.'}))
+            dispatch(fetchProducts())
+        } catch (e) {
+            return rejectWithValue(e.response ? e.response.data.error : "unknown error")
+        }
+    }
+)
 
 export const productsSlice = createSlice({
     name: "products",
@@ -80,6 +90,15 @@ export const productsSlice = createSlice({
             })
             .addCase(addProduct.rejected, state => {
                 state.formLoader = false
+            })
+            .addCase(removeProduct.pending, state => {
+                state.shopLoader = true
+            })
+            .addCase(removeProduct.fulfilled, state => {
+                state.shopLoader = false
+            })
+            .addCase(removeProduct.rejected, state => {
+                state.shopLoader = false
             })
     }
 })
