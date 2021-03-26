@@ -17,6 +17,7 @@
     "@types/react-router-dom": "^5.1.7",
     "axios": "^0.21.1",
     "bootstrap": "^4.6.0",
+    "bootstrap-icons": "^1.4.0",
     "firebase": "^8.3.0",
     "formik": "^2.2.6",
     "node-sass": "^5.0.0",

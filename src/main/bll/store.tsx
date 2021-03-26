@@ -1,16 +1,17 @@
 import { configureStore } from "@reduxjs/toolkit"
 import { combineReducers } from "redux"
 import { alertSlice } from "./alertReducer"
-import { productsSlice } from "./productsReducer"
+import { cartSlice } from "./cartReducer"
+import { shopSlice } from "./shopReducer"
 
 export const rootReducer = combineReducers({
     alert: alertSlice.reducer,
-    products: productsSlice.reducer
+    shop: shopSlice.reducer,
+    cart: cartSlice.reducer
 })
 
 export const store = configureStore({
-    reducer: rootReducer,
-
+    reducer: rootReducer
 })
 
 export type RootStateType = ReturnType<typeof store.getState>

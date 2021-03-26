@@ -2,13 +2,13 @@ import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchProducts, ShopStateType } from '../main/bll/shopReducer'
 import { RootStateType } from '../main/bll/store'
+import { Form } from '../main/ui/common/Form'
 import { Loader } from '../main/ui/common/Loader'
-import { Products } from '../main/ui/common/Products'
+import { ShopItems } from '../main/ui/common/ShopItems'
 
-
-export const Shop: React.FC = React.memo(() => {
+export const ShopManagement: React.FC = React.memo(() => {
     const dispatch = useDispatch()
-    const {shopLoader, products} = useSelector<RootStateType, ShopStateType>(state => state.shop)
+    const {formLoader, shopLoader, products} = useSelector<RootStateType, ShopStateType>(state => state.shop)
     
     useEffect(() => {
         dispatch(fetchProducts())
@@ -16,6 +16,8 @@ export const Shop: React.FC = React.memo(() => {
     }, [])
 
     return <div>
-        {shopLoader ? <Loader/> : <Products products={products}/>}
+        {formLoader ? <Loader/> : <Form/>}
+        <hr/>
+        {shopLoader ? <Loader/> : < ShopItems products={products}/>}
     </div>
 })

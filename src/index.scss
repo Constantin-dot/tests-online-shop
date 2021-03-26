@@ -42,6 +42,20 @@ code {
   opacity: 0;
 }
 
+.cart-amount-item {
+  font-weight: bold;
+  color: azure;
+  border: 2px solid azure;
+  border-radius: 100%;
+  padding: 5px;
+}
+
+.cart-amount-block {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .product-exit-active {
   animation: product 800ms ease-out forwards;
 }

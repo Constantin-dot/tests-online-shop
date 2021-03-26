@@ -2,7 +2,7 @@ import { useFormik } from "formik"
 import React from "react"
 import { useDispatch } from "react-redux"
 import { showAlert } from "../../bll/alertReducer"
-import { addProduct } from "../../bll/productsReducer"
+import { addProduct } from "../../bll/shopReducer"
 
 
 export const Form: React.FC = React.memo(() => {

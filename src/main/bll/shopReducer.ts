@@ -1,6 +1,6 @@
 import { RootStateType} from './store'
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit"
-import { CreateProductType, productListAPI } from "../dal/productList-api"
+import { CreateProductType, productListAPI, ProductType } from "../dal/shop-api"
 import { showAlert } from './alertReducer'
 
 
@@ -14,7 +14,7 @@ export const fetchProducts = createAsyncThunk<
     unknown,
     undefined,
     {rejectValue: string, state: RootStateType}
-    >("products/fetchProducts/TC",
+    >("shop/fetchProducts/TC",
     async (arg, {dispatch}) => {
         const res = await productListAPI.fetchProducts()
         const payload: Array<ProductType> = Object.keys(res.data).map(key => {
@@ -24,7 +24,6 @@ export const fetchProducts = createAsyncThunk<
             }
         })
         dispatch(getProducts(payload))
-        // console.log(payload);
     }
 )
 
@@ -32,14 +31,16 @@ export const addProduct = createAsyncThunk<
     unknown, 
     CreateProductType, 
     {rejectValue: string, state: RootStateType}
-    >("products/addProductTC", 
+    >("shop/addProductTC", 
     async (product, {rejectWithValue, dispatch}) => {
         try {
             await productListAPI.addProduct(product)
             dispatch(showAlert({alertClass: 'success', alertText: 'New product was added to product list.'}))
             dispatch(fetchProducts())
         } catch (e) {
-            return rejectWithValue(e.response ? e.response.data.error : "unknown error")
+            // return rejectWithValue(e.response ? e.response.data.error : "unknown error")
+            console.log(e);
+            
         }
     }
 )
@@ -48,20 +49,22 @@ export const removeProduct = createAsyncThunk<
     unknown,
     string,
     {rejectValue: string, state: RootStateType}
-    >("products/removeProductTC", 
+    >("shop/removeProductTC", 
     async (id, {rejectWithValue, dispatch}) => {
         try {
             await productListAPI.removeProduct(id)
             dispatch(showAlert({alertClass: 'success', alertText: 'Product was removed from product list.'}))
             dispatch(fetchProducts())
         } catch (e) {
-            return rejectWithValue(e.response ? e.response.data.error : "unknown error")
+            // return rejectWithValue(e.response ? e.response.data.error : "unknown error")
+            console.log(e);
+            
         }
     }
 )
 
-export const productsSlice = createSlice({
-    name: "products",
+export const shopSlice = createSlice({
+    name: "shop",
     initialState,
     reducers: {
         shopLoading: (state, action: PayloadAction<{value: boolean}>) => {
@@ -103,10 +106,5 @@ export const productsSlice = createSlice({
     }
 })
 
-export const {getProducts, shopLoading} = productsSlice.actions
-export type ProductsStateType = typeof initialState
-export type ProductType = {
-    id: string
-    name: string
-    price: string
-}
+export const {getProducts, shopLoading} = shopSlice.actions
+export type ShopStateType = typeof initialState

@@ -1,0 +1,38 @@
+import React from "react"
+import { useDispatch } from "react-redux"
+import { CSSTransition, TransitionGroup } from "react-transition-group"
+import { removeProduct } from "../../bll/shopReducer"
+import { ProductType } from "../../dal/shop-api"
+
+type ShopItemsPropsType = {
+    products: Array<ProductType>
+}
+
+export const ShopItems: React.FC<ShopItemsPropsType> = React.memo(({products}) => {
+    const dispatch = useDispatch()
+
+    return <TransitionGroup 
+        component="ul"
+        className="list-group"
+    >
+        {products && products.map(product => (
+            <CSSTransition
+                key={product.id}
+                classNames={'product'}
+                timeout={800}
+            >
+                <li className="list-group-item product">
+                    <h3>{product.name}</h3>
+                    {product.price + " $"}
+                    <button 
+                        type="button" 
+                        className="btn btn-outline-danger btn-sm"
+                        onClick={() => dispatch(removeProduct(product.id))}
+                    >
+                        &times;
+                    </button>
+                </li>
+            </CSSTransition>
+        ))}
+    </TransitionGroup>
+})
