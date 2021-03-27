@@ -1,12 +1,16 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { NavLink } from 'react-router-dom'
-import { calculateAmount, CartStateType } from '../../bll/cartReducer'
+import { CartStateType, fetchProductsFromCart } from '../../bll/cartReducer'
 import { RootStateType } from '../../bll/store'
 
 export const Navbar: React.FC = React.memo(() => {
     const dispatch = useDispatch()
     const {purchaseAmount} = useSelector<RootStateType, CartStateType>(state => state.cart)
+
+    useEffect( () => {
+        dispatch(fetchProductsFromCart())
+    }, [])
 
     return <nav className="navbar navbar-dark navbar-expand-lg bg-primary">
         <div className="navbar-brand">
@@ -39,7 +43,7 @@ export const Navbar: React.FC = React.memo(() => {
                     My cart
                 </NavLink>
                 {purchaseAmount > 0 
-                    ?  <div className="cart-amount-item">
+                    ?  <div className="badge bg-info text-dark">
                             {purchaseAmount + "$"}
                         </div>
                     : null}

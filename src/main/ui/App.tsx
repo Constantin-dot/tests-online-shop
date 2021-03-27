@@ -9,13 +9,13 @@ const App: React.FC = () => {
     return <div>
         <Navbar/>
         <div className="container pt-4">
-            <Alert />
             <Switch>
                 <Route path={'/'} exact component={Shop}/>
                 <Route path={'/shopManagement'} component={ShopManagement}/>
                 <Route path={'/cart'} component={Cart}/>
                 <Route path={'*'} render={ () => <div className="jumbotron">404 NOT FOUND</div>}/>
             </Switch>
+            <Alert />
         </div>
     </div>
 }
