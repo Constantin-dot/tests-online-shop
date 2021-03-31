@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchProducts, ShopStateType } from '../main/bll/shopReducer'
 import { RootStateType } from '../main/bll/store'
-import { Form } from '../main/ui/common/Form'
+import { ProductForm } from '../main/ui/common/ProductForm'
 import { Loader } from '../main/ui/common/Loader'
 import { ShopItems } from '../main/ui/common/ShopItems'
 
@@ -16,7 +16,7 @@ export const ShopManagement: React.FC = React.memo(() => {
     }, [])
 
     return <div>
-        {formLoader ? <Loader/> : <Form/>}
+        {formLoader ? <Loader/> : <ProductForm/>}
         <hr/>
         {shopLoader ? <Loader/> : < ShopItems products={products}/>}
     </div>

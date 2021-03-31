@@ -5,7 +5,7 @@ import { hideAlert, showAlert } from "./alertReducer"
 const initialState = {
     purchaseAmount: 0 as number,
     productsInCart: [] as Array<ProductInCartType>,
-    productsForPuttingInCart: [] as Array<ProductInCartType>
+    orderData: {} as OrderDataType
 }
 
 export const fetchProductsFromCart = () => (dispatch: Dispatch) => {
@@ -14,10 +14,28 @@ export const fetchProductsFromCart = () => (dispatch: Dispatch) => {
 }
 
 export const addProductToCart = (product: ProductType) => (dispatch: Dispatch) => {
+    dispatch(getChosenProducts())
     dispatch(addProduct({product}))
     dispatch(showAlert({alertClass: 'success', alertText: 'The product was added to cart.'}))
     dispatch(calculateAmount())
     setTimeout(() => dispatch(hideAlert()), 5000)
+}
+
+export const changeProductCountTC = (id: string, actionValue: string, count: number) => (dispatch: Dispatch) => {
+    if (actionValue === "minus" && count === 1) {
+        dispatch(getChosenProducts())
+        dispatch(removeProductFromCart({id}))
+        dispatch(calculateAmount())
+    } else {
+        dispatch(getChosenProducts())
+        dispatch(changeProductCount({id, actionValue}))
+        dispatch(calculateAmount())
+    }
+}
+
+export const makeAnOrder = (name: string, surname: string, address: string, phone: string) => (dispatch: Dispatch) => {
+    dispatch(saveOrderData({name, surname, address, phone}))
+    dispatch(sendOrder())
 }
 
 export const cartSlice = createSlice({
@@ -29,32 +47,62 @@ export const cartSlice = createSlice({
             
             if(products) {
                 state.productsInCart = JSON.parse(products)
-            }   
-            
-            console.log(state.productsInCart);
-            
+            }
         },
         addProduct: (state, action: PayloadAction<{product: ProductType}>) => {
-            state.productsForPuttingInCart.push({...action.payload.product, count: 1})
-            localStorage.setItem('productsInCart', JSON.stringify( state.productsForPuttingInCart))
+            state.productsInCart.push({...action.payload.product, count: 1})
+            localStorage.setItem('productsInCart', JSON.stringify( state.productsInCart))
         },
         calculateAmount: state => {
-            
+            state.purchaseAmount = 0
             for(let i = 0; i < state.productsInCart.length; i++) {
                 let price = parseFloat(state.productsInCart[i].price)
-                state.purchaseAmount += price
+                let sum = state.productsInCart[i].count * price
+                let modifiedSum = Math.round(sum * 100) / 100
+                state.purchaseAmount += modifiedSum
             }
-            console.log(state.purchaseAmount);
-            
+            state.purchaseAmount = Math.round(state.purchaseAmount * 100) / 100 
+        },
+        changeProductCount: (state, action: PayloadAction<{id: string, actionValue: string}>) => {
+            let product = state.productsInCart.find(p => p.id === action.payload.id)
+            if (product && action.payload.actionValue === "plus") {
+                product.count += 1
+            } else if (product && action.payload.actionValue === "minus") {
+                product.count -= 1
+            }
+            localStorage.setItem('productsInCart', JSON.stringify( state.productsInCart))
+        },
+        removeProductFromCart: (state, action: PayloadAction<{id: string}>) => {
+            let index = state.productsInCart.findIndex(p => p.id === action.payload.id)
+            if (index > -1) {
+                state.productsInCart.splice(index, 1)
+            }
+        },
+        saveOrderData: (state, action: PayloadAction<{name: string, surname: string, address: string, phone: string}>) => {
+            state.orderData.name = action.payload.name
+            state.orderData.surname = action.payload.surname
+            state.orderData.address = action.payload.address
+            state.orderData.phone = action.payload.phone
+        },
+        sendOrder: state => {
+            let data = JSON.stringify([state.orderData, state.productsInCart])
+            alert(data)
         }
     }
 })
 
-export const {getChosenProducts, addProduct, calculateAmount} = cartSlice.actions
+export const {getChosenProducts, addProduct, calculateAmount, 
+    changeProductCount, removeProductFromCart, saveOrderData, sendOrder} = cartSlice.actions
 export type CartStateType = typeof initialState
 export type ProductInCartType = {
     id: string
     name: string
     price: string
     count: number
+}
+export type OrderDataType = {
+    name: string
+    surname: string
+    address: string
+    phone: string
 }

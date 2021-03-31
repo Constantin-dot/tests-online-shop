@@ -5,7 +5,7 @@ import { showAlert } from "../../bll/alertReducer"
 import { addProduct } from "../../bll/shopReducer"
 
 
-export const Form: React.FC = React.memo(() => {
+export const ProductForm: React.FC = React.memo(() => {
     const dispatch = useDispatch()
 
     const handleOnSubmit = (name: string, price: string) => {
@@ -26,7 +26,7 @@ export const Form: React.FC = React.memo(() => {
         }
     })
     
-    return <form className="jumbotron formBlock form-group" onSubmit={formik.handleSubmit}>
+    return <form className="jumbotron productFormBlock form-group" onSubmit={formik.handleSubmit}>
         <input 
             className="form-control"
             placeholder="please, enter product name"
@@ -37,7 +37,10 @@ export const Form: React.FC = React.memo(() => {
             placeholder="please, enter product price"
             {...formik.getFieldProps("price")}
         />
-        <button type="submit">
+        <button 
+            type="submit"
+            className="btn btn-outline-secondary"
+        >
             Add new product
         </button>
     </form>

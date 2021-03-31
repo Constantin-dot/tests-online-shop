@@ -1,8 +1,7 @@
 import React from "react"
-import { useDispatch, useSelector } from "react-redux"
+import { useDispatch } from "react-redux"
 import { CSSTransition, TransitionGroup } from "react-transition-group"
-import { removeProduct, ShopStateType } from "../../bll/shopReducer"
-import { RootStateType } from "../../bll/store"
+import { removeProduct } from "../../bll/shopReducer"
 import { ProductType } from "../../dal/shop-api"
 
 type ShopItemsPropsType = {
@@ -11,7 +10,6 @@ type ShopItemsPropsType = {
 
 export const ShopItems: React.FC<ShopItemsPropsType> = React.memo(({products}) => {
     const dispatch = useDispatch()
-    // const {} = useSelector<RootStateType, ShopStateType>(state => state.shop)
 
     return <TransitionGroup 
         component="ul"

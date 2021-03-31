@@ -10,6 +10,7 @@ export const Navbar: React.FC = React.memo(() => {
 
     useEffect( () => {
         dispatch(fetchProductsFromCart())
+        // eslint-disable-next-line
     }, [])
 
     return <nav className="navbar navbar-dark navbar-expand-lg bg-primary">
