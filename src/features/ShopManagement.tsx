@@ -16,8 +16,8 @@ export const ShopManagement: React.FC = React.memo(() => {
     }, [])
 
     return <div>
-        {formLoader ? <Loader/> : <ProductForm/>}
+        <ProductForm/>{/* {formLoader ? <Loader/> : <ProductForm/>} */}
         <hr/>
-        {shopLoader ? <Loader/> : < ShopItems products={products}/>}
+        < ShopItems products={products}/>{/* {shopLoader ? <Loader/> : < ShopItems products={products}/>} */}
     </div>
 })

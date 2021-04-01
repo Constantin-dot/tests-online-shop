@@ -5,8 +5,10 @@ import { Shop } from '../../features/Shop';
 import { ShopManagement } from '../../features/ShopManagement';
 import { Cart } from '../../features/Cart';
 
+
 const App: React.FC = () => {
     return <div>
+        <Alert />
         <Navbar/>
         <div className="container pt-4">
             <Switch>
@@ -15,7 +17,6 @@ const App: React.FC = () => {
                 <Route path={'/cart'} component={Cart}/>
                 <Route path={'*'} render={ () => <div className="jumbotron">404 NOT FOUND</div>}/>
             </Switch>
-            <Alert />
         </div>
     </div>
 }

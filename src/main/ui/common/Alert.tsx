@@ -4,8 +4,10 @@ import { AlertStateType, hideAlert } from "../../bll/alertReducer"
 import { RootStateType } from "../../bll/store"
 import { CSSTransition } from "react-transition-group"
 
-type AlertPropsType = {
-    
+export type AlertPropsType = {
+    visible?: boolean
+    alertClass?: string
+    alertText?: string
 }
 
 export const Alert: React.FC<AlertPropsType> = React.memo(() => {
