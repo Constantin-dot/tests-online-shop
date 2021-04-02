@@ -1,23 +1,14 @@
 import React from "react"
-import { useDispatch, useSelector } from "react-redux"
-import { AlertStateType, hideAlert } from "../../bll/alertReducer"
-import { RootStateType } from "../../bll/store"
 import { CSSTransition } from "react-transition-group"
 
 export type AlertPropsType = {
-    visible?: boolean
-    alertClass?: string
-    alertText?: string
+    visible: boolean
+    alertClass: string
+    alertText: string
+    hideAlertHandler: () => void
 }
 
-export const Alert: React.FC<AlertPropsType> = React.memo(() => {
-    const dispatch = useDispatch()
-    const {visible, alertClass, alertText} = useSelector<RootStateType, AlertStateType>(state => state.alert) 
-
-    const hideHandler = () => {
-        dispatch(hideAlert())
-    }
-
+export const Alert: React.FC<AlertPropsType> = React.memo(({visible, alertClass, alertText, hideAlertHandler}) => {
     return <CSSTransition
         in={visible}
         timeout={{
@@ -34,7 +25,7 @@ export const Alert: React.FC<AlertPropsType> = React.memo(() => {
                 type="button"
                 className="close" 
                 aria-label="Close"
-                onClick={hideHandler}
+                onClick={hideAlertHandler}
             >
                 <span aria-hidden="true">
                     &times;

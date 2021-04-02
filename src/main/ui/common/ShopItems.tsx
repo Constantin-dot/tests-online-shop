@@ -27,15 +27,21 @@ export const ShopItems: React.FC<ShopItemsPropsType> = React.memo(({products}) =
                 unmountOnExit
             >
                 <li className="list-group-item product">
-                    <h3>{product.name}</h3>
-                    {product.price + " $"}
-                    <button 
-                        type="button" 
-                        className="btn btn-danger btn-sm"
-                        onClick={() => dispatch(removeProduct(product.id))}
-                    >
-                        &times;
-                    </button>
+                    <div className={"item-box"}>
+                        <h3>{product.name}</h3>
+                    </div>
+                    <div className={"item-box"}>
+                        {product.price + " $"}
+                    </div>
+                    <div className={"item-box"}>
+                        <button 
+                            type="button" 
+                            className="btn btn-danger btn-sm"
+                            onClick={() => dispatch(removeProduct(product.id))}
+                        >
+                            &times;
+                        </button>
+                    </div>
                 </li>
             </CSSTransition>
         ))}

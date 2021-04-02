@@ -76,6 +76,7 @@ export const cartSlice = createSlice({
             let index = state.productsInCart.findIndex(p => p.id === action.payload.id)
             if (index > -1) {
                 state.productsInCart.splice(index, 1)
+                localStorage.setItem('productsInCart', JSON.stringify( state.productsInCart))
             }
         },
         saveOrderData: (state, action: PayloadAction<{name: string, surname: string, address: string, phone: string}>) => {

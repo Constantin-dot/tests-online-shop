@@ -30,8 +30,12 @@ export const ChosenProducts: React.FC<ChosenProductsPropsType> = ({chosenProduct
                 unmountOnExit
             >
                 <li className="list-group-item product item-in-cart">
-                    <h3>{chosenProduct.name}</h3>
-                    {chosenProduct.price + " $ per lb"}
+                    <div className="item-box">
+                        <h3>{chosenProduct.name}</h3>
+                    </div>
+                    <div className="item-box">
+                        {chosenProduct.price + " $ per lb"}
+                    </div>
                     <div className="weight-buttons">
                         <button 
                             type="button" 

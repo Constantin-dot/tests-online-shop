@@ -102,16 +102,16 @@ code {
   width: 70%;
 }
 
-// .chosen-products-list {
-//   width: 100%;
-// }
-
 .cartFormBlock {
   height: 400px;
   display: flex;
   flex-direction: column;
   justify-content:space-between;
   align-items: center;
+}
+
+.item-box {
+  min-width: 200px;
 }
 
 

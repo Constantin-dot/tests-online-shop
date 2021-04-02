@@ -1,14 +1,14 @@
 import {Switch, Route} from 'react-router-dom'
 import { Navbar } from './common/Navbar';
-import { Alert } from './common/Alert';
 import { Shop } from '../../features/Shop';
 import { ShopManagement } from '../../features/ShopManagement';
 import { Cart } from '../../features/Cart';
+import { AlertContainer } from './common/alert/AlertContainer';
 
 
 const App: React.FC = () => {
     return <div>
-        <Alert />
+        <AlertContainer />
         <Navbar/>
         <div className="container pt-4">
             <Switch>
