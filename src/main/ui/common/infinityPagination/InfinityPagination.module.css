@@ -1,0 +1,11 @@
+.photo {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.photoItem {
+    min-width: 150px;
+    min-height: 150px;
+}
