@@ -1,18 +1,11 @@
-import React, { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import React from 'react'
 import { NavLink } from 'react-router-dom'
-import { CartStateType, fetchProductsFromCart } from '../../bll/cartReducer'
-import { RootStateType } from '../../bll/store'
 
-export const Navbar: React.FC = React.memo(() => {
-    const dispatch = useDispatch()
-    const {purchaseAmount} = useSelector<RootStateType, CartStateType>(state => state.cart)
+export type NavbarPropsType = {
+    purchaseAmount: number
+}
 
-    useEffect( () => {
-        dispatch(fetchProductsFromCart())
-        // eslint-disable-next-line
-    }, [])
-
+export const Navbar: React.FC<NavbarPropsType> = React.memo(({purchaseAmount}) => {
     return <nav className="navbar navbar-dark navbar-expand-lg bg-primary">
         <div className="navbar-brand">
             Online Shop

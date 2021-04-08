@@ -5,6 +5,7 @@ import { RootStateType } from '../main/bll/store'
 import { ProductForm } from '../main/ui/common/ProductForm'
 import { Loader } from '../main/ui/common/Loader'
 import { ShopItems } from '../main/ui/common/ShopItems'
+import { DnD } from '../main/ui/common/dNd/DnD'
 
 export const ShopManagement: React.FC = React.memo(() => {
     const dispatch = useDispatch()
@@ -18,6 +19,7 @@ export const ShopManagement: React.FC = React.memo(() => {
     return <div>
         <ProductForm/> {/* {formLoader ? <Loader/> : <ProductForm/>} */}
         <hr/>
-        < ShopItems products={products}/> {/* {shopLoader ? <Loader/> : < ShopItems products={products}/>} */}
+        <ShopItems products={products}/> {/* {shopLoader ? <Loader/> : < ShopItems products={products}/>} */}
+        <DnD />
     </div>
 })

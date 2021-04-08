@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux'
 import { CSSTransition, TransitionGroup } from 'react-transition-group'
 import { changeProductCountTC, ProductInCartType } from '../../bll/cartReducer'
 
-type ChosenProductsPropsType = {
+export type ChosenProductsPropsType = {
     chosenProducts: Array<ProductInCartType>
 }
 

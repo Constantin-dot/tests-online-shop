@@ -1,15 +1,15 @@
 import {Switch, Route} from 'react-router-dom'
-import { Navbar } from './common/Navbar';
-import { Shop } from '../../features/Shop';
-import { ShopManagement } from '../../features/ShopManagement';
-import { Cart } from '../../features/Cart';
-import { AlertContainer } from './common/alert/AlertContainer';
+import { Shop } from '../../features/Shop'
+import { ShopManagement } from '../../features/ShopManagement'
+import { Cart } from '../../features/Cart'
+import { AlertContainer } from './common/alert/AlertContainer'
+import { NavbarContainer } from './common/navbar/NavbarContainer'
 
 
 const App: React.FC = () => {
     return <div>
         <AlertContainer />
-        <Navbar/>
+        <NavbarContainer/>
         <div className="container pt-4">
             <Switch>
                 <Route path={'/'} exact component={Shop}/>

@@ -25,7 +25,6 @@ export const Cart: React.FC = React.memo(() => {
             <ChosenProducts chosenProducts={productsInCart}/>
             <strong>{`Total : ${purchaseAmount}$`}</strong>
         </div>
-        
         <OrderForm onSubmitHandler={onSubmitHanler}/>
     </div>
 })
