@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import classes from './Slider.module.css'
 import firstSlide from './img1.jpg'
 import secondSlide from './img2.jpg'

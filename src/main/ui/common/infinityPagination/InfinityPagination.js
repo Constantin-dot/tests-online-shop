@@ -7,7 +7,6 @@ export const InfinityPagination = () => {
     const [photos, setPhotos] = useState([])
     const [currentPage, setCurrentPage] = useState(1)
     const [fetching, setFetching] = useState(true)
-    // const [totalCount, setTotalCount] = useState(0)
 
     const scrollHandler = (e) => {
         if(e.target.documentElement.scrollHeight - (e.target.documentElement.scrollTop + window.innerHeight) < 100 ) {
@@ -20,10 +19,9 @@ export const InfinityPagination = () => {
         .then(response => {
             setPhotos([...photos, ...response.data])
             setCurrentPage(prevState => prevState + 1)
-            // setTotalCount(response.headers['x-total-count'])
-            // console.log(totalCount);
         })
         .finally( () => setFetching(false))
+        // eslint-disable-next-line
     }, [fetching])
 
     useEffect( () => {
@@ -31,6 +29,7 @@ export const InfinityPagination = () => {
         return () => {
             document.removeEventListener('scroll', scrollHandler)
         }
+        // eslint-disable-next-line
     }, [])
 
     return <div>
